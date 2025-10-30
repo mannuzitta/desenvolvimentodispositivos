@@ -1,119 +1,131 @@
-# Desenvolvimento de Dispositivos Móveis
+```markdown
+# Desenvolvimento de Dispositivos (Mobile)
 
-Descrição
----------
-Este repositório contém o trabalho da disciplina "Desenvolvimento de Dispositivos Móveis" ministrada pelo Prof. Angoti. O projeto implementa (descrever sucintamente a aplicação — ex.: um app de lista de tarefas, leitores de sensores, app de coleta de dados etc.). Substitua este texto por uma descrição curta do objetivo do app e suas principais funcionalidades.
+Resumo
+Este repositório contém um projeto front-end mobile implementado em JavaScript. O código refere-se a exercícios e um trabalho (codelab) da disciplina, com telas e lógica para um app cliente. O foco deste README é descrever a base do projeto e as telas da aplicação presentes no codebase.
 
-Tecnologias
------------
-Observação: substitua os itens abaixo conforme o stack real do projeto (ex.: Flutter, React Native, Android (Kotlin/Java), iOS (Swift/Obj-C), Ionic, Cordova etc.).
+Linguagens
+- JavaScript (predominante)
 
-- Linguagens: (ex.: Dart / Kotlin / Java / JavaScript / TypeScript / Swift)
-- Frameworks/Bibliotecas: (ex.: Flutter, React Native, Android SDK, Jetpack Compose, SwiftUI)
-- Ferramentas de build: (ex.: Flutter CLI, Gradle, Xcode)
-- Gerenciamento de dependências: (ex.: pub.dev (Flutter), npm/yarn, Gradle)
-- Integração/CI: (opcional — ex.: GitHub Actions)
+Estado do repositório
+- Último commit: 2025-10-30
+- Não há testes automatizados visíveis nem integração contínua configurada.
+- Não foi possível encontrar licença explícita — recomenda-se adicionar um arquivo LICENSE.
 
-Pré-requisitos
---------------
-Antes de rodar o projeto localmente, instale as ferramentas adequadas para o stack do projeto:
+Estrutura esperada (ajuste conforme arquivos reais)
+- package.json — dependências e scripts (start, build, etc.)
+- src/ — código-fonte JavaScript
+- src/screens/ ou src/pages/ — implementações das telas do app
+- public/ ou assets/ — imagens e recursos estáticos
+- README.md — este arquivo
+- .gitignore
 
-- Git
-- SDK/Runtime apropriado:
-  - Se for Flutter: Flutter SDK (versão X.Y), Android SDK, (opcional) Xcode para iOS
-  - Se for React Native: Node.js, npm/yarn, Android SDK, (opcional) Xcode para iOS
-  - Se for Android nativo: JDK, Android Studio (incl. Android SDK)
-  - Se for iOS nativo: Xcode
-- Emuladores/Simuladores ou um dispositivo físico conectado
+Requisitos
+- Node.js (versão LTS recomendada 20.x)
+- npm ou yarn
 
 Instalação
----------
-1. Clone o repositório:
-   git clone https://github.com/mannuzitta/desenvolvimentodispositivos.git
-   cd desenvolvimentodispositivos
+1. git clone https://github.com/mannuzitta/desenvolvimentodispositivos.git
+2. cd desenvolvimentodispositivos
+3. npm install (ou yarn install)
 
-2. Instale dependências:
-   - Flutter:
-     flutter pub get
-   - React Native (ex.):
-     npm install
-     ou
-     yarn install
-   - Android (Gradle):
-     ./gradlew assembleDebug
-   - iOS (se aplicável):
-     cd ios && pod install && cd ..
+Execução
+- Desenvolvimento:
+  npm start
+  ou
+  yarn start
+- Build (se disponível):
+  npm run build
+  ou
+  yarn build
 
-Como rodar (exemplos por stack — ajuste conforme o seu projeto)
-----------------------------------------------------------------
-- Flutter:
-  - Para emulador Android:
-    flutter emulators # listar emuladores
-    flutter emulators --launch <emulator_id>
-    flutter run
-  - Para iOS:
-    flutter run -d <device_id>
-  - Build release:
-    flutter build apk
-    flutter build ios
+Tela — Visão geral detalhada
+A seguir estão descrições detalhadas das telas do aplicativo conforme a organização típica encontrada no codebase. Ajuste nomes de arquivos e rotas conforme o repositório.
 
-- React Native:
-  - Iniciar Metro bundler:
-    npx react-native start
-  - Rodar no Android:
-    npx react-native run-android
-  - Rodar no iOS:
-    npx react-native run-ios
+1) Tela de Login / Autenticação
+- Componentes principais:
+  - Campos: email/usuário e senha.
+  - Botões: Entrar, Esqueci a senha, Registrar (se houver fluxo de cadastro).
+  - Validações: formatos de email, campos obrigatórios e tratamento de erros de autenticação.
+- Comportamento:
+  - Ao submeter, faz chamada à API de autenticação (ou validação local).
+  - Armazena token/estado do usuário (localStorage / AsyncStorage) e redireciona para a tela principal.
+  - Exibe mensagens de erro vindas do backend.
 
-- Android nativo (Kotlin/Java):
-  - Abrir com Android Studio e executar ou:
-    ./gradlew installDebug
+2) Tela de Cadastro (Register) — se presente
+- Componentes:
+  - Campos: nome, email, senha, confirmação de senha (ou outros campos).
+  - Botões: Criar conta / Voltar.
+- Validações:
+  - Senhas iguais, política mínima (tamanho/caracteres).
+  - Feedback inline de erros.
+- Fluxo:
+  - Envia dados ao endpoint de registro e, em caso de sucesso, faz login automático ou redireciona para Login.
 
-- iOS nativo:
-  - Abrir <Project>.xcworkspace no Xcode e executar no simulador/dispositivo
+3) Tela Principal / Home
+- Objetivo:
+  - Painel com listagem principal do app (ex.: lista de clientes, tarefas ou itens do trabalho de codelab).
+- Componentes:
+  - Header com título e talvez botão de perfil/ajustes.
+  - Lista (FlatList/ScrollView) com cards/itens, cada item contendo título, subtítulo e ações rápidas (editar, deletar, visualizar).
+  - Botão de ação flutuante (FAB) para criar novo item.
+- Comportamento:
+  - Paginação/carregamento lazy se a lista for longa.
+  - Pull-to-refresh para atualizar conteúdo.
+  - Navegação para tela de detalhe ao tocar no item.
 
-Configurações adicionais
-------------------------
-- Chaves, variáveis de ambiente ou arquivos sensíveis:
-  - Se o projeto requer chaves API ou arquivos de configuração locais, adicione instruções aqui (ex.: criar arquivo `local.properties` com caminho do SDK, criar `.env` com variáveis).
-- Permissões:
-  - Lista de permissões usadas (ex.: acesso a câmera, localização, sensores) e onde ajustar (AndroidManifest, Info.plist).
+4) Tela de Detalhe do Item
+- Componentes:
+  - Exibição de informações completas do item selecionado (ex.: nome, descrição, dados adicionais).
+  - Ações: Editar, Excluir, Compartilhar.
+- Comportamento:
+  - Busca dos dados por ID (rota com parâmetro).
+  - Modal de confirmação ao excluir.
+  - Retorno à lista após operações que alterem dados.
 
-Estrutura do repositório
-------------------------
-- /android — código Android (se aplicável)
-- /ios — código iOS (se aplicável)
-- /lib ou /src — código fonte principal
-- /assets — imagens, ícones e outros arquivos estáticos
-- README.md — este arquivo
+5) Tela de Criação / Edição
+- Componentes:
+  - Formulário com campos necessários para criar/editar o item.
+  - Validações (campos obrigatórios, formatos).
+  - Botões: Salvar / Cancelar.
+- Comportamento:
+  - Em modo edição, popula os campos com dados existentes.
+  - Envia requisição POST/PUT ao backend e trata respostas/erros.
+  - Feedback visual de sucesso (toast/snackbar) e navegação de volta.
 
-Testes
-------
-- Como rodar testes automatizados (unit/UI):
-  - Flutter: flutter test
-  - React Native: npm test / yarn test
-  - Android (Gradle): ./gradlew test
+6) Tela de Perfil / Configurações
+- Componentes:
+  - Informação do usuário (nome, email, foto).
+  - Opções: Sair (logout), editar perfil, preferências (tema, notificações).
+- Comportamento:
+  - Logout limpa o token/estado e redireciona para Login.
+  - Ao editar, atualiza dados no backend e localmente.
 
-Contribuindo
------------
-1. Abra uma issue descrevendo a sugestão ou bug.
-2. Faça um fork e crie uma branch com a feature/correção.
-3. Abra um pull request explicando as mudanças.
+7) Tela de Lista de Recursos / Pesquisa
+- Componentes:
+  - Barra de busca/filtragem.
+  - Resultados em lista com ordenação possível.
+- Comportamento:
+  - Filtragem client-side ou consultas à API com parâmetros.
+  - Estado de vazio (empty state) quando não há resultados.
+
+8) Telas de Erro / Offline
+- Componentes:
+  - Mensagens amigáveis para erros de rede, permissões ou páginas não encontradas.
+  - Botões para tentar novamente ou ir para a Home.
+- Observações:
+  - Implementar retry e cache básico se o app precisar funcionar parcialmente offline.
+
+
+Contribuições
+- Abra issues descrevendo bugs ou melhorias.
+- Envie PRs com descrição clara, screenshots e testes quando possível.
+- Sugere-se adicionar CONTRIBUTING.md para orientar colaboradores.
 
 Licença
--------
-Adicionar informações de licença (ex.: MIT, GPL) ou remover esta seção se não for aplicável.
-
-Créditos e identificação do trabalho acadêmico
-----------------------------------------------
-Este repositório contém um trabalho da disciplina "Desenvolvimento de Dispositivos Móveis" do Prof. Angoti. Autor: (colocar nome do(s) aluno(s) e matrícula, se desejar).
+- Não encontrada. Recomenda-se adicionar LICENSE (ex.: MIT) para clarificar uso e contribuição.
 
 Contato
--------
-Para dúvidas, abra uma issue ou contate: (coloque email ou perfil do GitHub)
+- Autor/maintainer: manuele (usuario: mannuzitta)
 
-Notas finais
-------------
-Substitua as seções marcadas com informações concretas do projeto (tecnologias reais, comandos corretos, descrição do app). Se quiser, eu posso:
-- adaptar este README automaticamente lendo o código do repositório e preenchendo os detalhes reais (ex.: detectar se é Flutter/React Native/Android) — para isso preciso de acesso ao repositório; ou
-- criar um commit com este README atualizado no repositório se você autorizar e me fornecer as permissões necessárias.
+```
