@@ -1,4 +1,3 @@
-```markdown
 # Desenvolvimento de Dispositivos (Mobile)
 
 Resumo
@@ -128,4 +127,3 @@ Licença
 Contato
 - Autor/maintainer: manuele (usuario: mannuzitta)
 
-```
